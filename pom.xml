@@ -1,0 +1,155 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tck.camunda</groupId>
+    <artifactId>testCamelCamundaBoundary</artifactId>
+    <version>1.0.0</version>
+    <name>API</name>
+
+    <repositories>
+        <repository>
+            <id>camunda-bpm-nexus</id>
+            <name>camunda-bpm-nexus</name>
+            <url>https://app.camunda.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <swagger.version>2.7.0</swagger.version>
+        <camunda.spring.boot.starter.version>3.0.0</camunda.spring.boot.starter.version>
+        <spring.boot.version>2.0.2.RELEASE</spring.boot.version>
+        <camunda.version>7.9.0</camunda.version>
+        <camel.version>2.22.2</camel.version>
+        <!--<camunda.camel.version>0.6</camunda.camel.version>-->
+        <camunda.camel.version>0.7-SNAPSHOT</camunda.camel.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from camunda -->
+                <groupId>org.camunda.bpm</groupId>
+                <artifactId>camunda-bom</artifactId>
+                <version>${camunda.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Camel BOM -->
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-parent</artifactId>
+                <version>${camel.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+            <version>${camunda.spring.boot.starter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+            <version>${camunda.spring.boot.starter.version}</version>
+        </dependency>
+        <!-- camel -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.extension.camel</groupId>
+            <artifactId>camunda-bpm-camel-spring</artifactId>
+            <version>${camunda.camel.version}</version>
+        </dependency>
+
+        <!--
+              <dependency>
+                  <groupId>org.apache.camel</groupId>
+                  <artifactId>camel-groovy</artifactId>
+                  <exclusions>
+                      <exclusion>
+                          <artifactId>jaxb-impl</artifactId>
+                          <groupId>com.sun.xml.bind</groupId>
+                      </exclusion>
+                      &lt;!&ndash; <exclusion> <artifactId>groovy-all</artifactId> <groupId>org.codehaus.groovy</groupId>
+                          </exclusion> &ndash;&gt;
+                  </exclusions>
+              </dependency>
+        -->
+
+        <!-- https://mvnrepository.com/artifact/org.camunda.spin/camunda-spin-dataformat-all -->
+        <dependency>
+            <groupId>org.camunda.spin</groupId>
+            <artifactId>camunda-spin-dataformat-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-plugin-spin</artifactId>
+        </dependency>
+
+        <!--<dependency>
+          <groupId>org.camunda.spin</groupId>
+          <artifactId>camunda-spin-dataformat-json-jackson</artifactId>
+        </dependency>-->
+
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <!--<version>42.2.2</version>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.0.2.RELEASE</version>
+                <configuration>
+                    <layout>ZIP</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
